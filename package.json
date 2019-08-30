@@ -1,10 +1,11 @@
 {
   "name": "express-range-paginate",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "express header range paginate",
   "main": "dist/index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "prepack": "tsc && npx mocha"
   },
   "repository": {
     "type": "git",
