@@ -1,6 +1,6 @@
 {
   "name": "express-range-paginate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "express header range paginate",
   "main": "dist/index.js",
   "scripts": {
