@@ -23,13 +23,13 @@ export function paginateMiddleware(options?: {keyword?: string, maxLimit?: numbe
         let rangeto = 0;
         let rangeOffset: number = 0;
         if (range) {
-            let group = /items\s*:\s*(\d+)-(\d+|\*)/.exec(range);
+            let group = /items\s*(:|=)\s*(\d+)-(\d+|\*)/.exec(range);
             if (group) {
-                rangeOffset = group[1] && parseInt(group[1]) || 0;
-                if (group[2] == '*') {
+                rangeOffset = group[2] && parseInt(group[2]) || 0;
+                if (group[3] == '*') {
                     rangeto = options!.maxLimit || 0;
                 } else {
-                    rangeto = group[2] && parseInt(group[2]) || 0;
+                    rangeto = group[3] && parseInt(group[3]) || 0;
                 }
             }
         }
