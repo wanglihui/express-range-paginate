@@ -8,7 +8,7 @@ export interface IPaginateRequest extends Request {
     paginate: IPaginate;
 }
 
-export function paginateMiddleware(options?: {keyword?: string}) {
+export function paginateMiddleware(options?: {keyword?: string, maxLimit?: number}) {
     if (!options) {
         options = {};
     }
@@ -27,7 +27,7 @@ export function paginateMiddleware(options?: {keyword?: string}) {
             if (group) {
                 rangeOffset = group[1] && parseInt(group[1]) || 0;
                 if (group[2] == '*') {
-                    rangeto = 0;
+                    rangeto = options!.maxLimit || 0;
                 } else {
                     rangeto = group[2] && parseInt(group[2]) || 0;
                 }
