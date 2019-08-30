@@ -89,4 +89,26 @@ describe("index", async ()=> {
             })
         })
     })
+
+    it("paginate with items=0-9999 should be ok when", (done) => {
+        process.nextTick( () => {
+            request(app)
+            .get('/range')
+            .set("Range", `items=${offset}-${to}`)
+            .expect(200)
+            .end( (err, resp) => {
+                if (err) {
+                 throw err;
+                }
+                let ret = resp.body;
+                if (typeof resp.body == 'string') {
+                    ret = JSON.parse(ret);
+                }
+                assert.equal(ret.limit, to-offset+1);
+                assert.equal(ret.offset, offset);
+                assert.equal(resp.header['content-range'], `items ${offset}-${total-offset}/${total}`);
+                done();
+            })
+        })
+    })
 })
