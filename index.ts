@@ -48,6 +48,7 @@ export function paginateMiddleware(options?: {keyword?: string, maxLimit?: numbe
 
 export function paginateRespHelper(pageCount: number, offset: number, total: number) {
     return (res: Response) => {
+        res.set('Access-Control-Expose-Headers', 'Content-Range');
         res.set('Content-Range', `items ${offset}-${pageCount}/${total}`);
     }
 }
