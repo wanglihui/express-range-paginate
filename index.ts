@@ -22,6 +22,9 @@ export function paginateMiddleware(options?: {keyword?: string, maxLimit?: numbe
         let range = req.headers[keyword as string] as string || req.headers[(keyword as string).toLowerCase()] as string;
         let rangeto = 0;
         let rangeOffset: number = 0;
+        if (!options!.maxLimit) {
+            options!.maxLimit = 20;
+        }
         if (range) {
             let group = /items\s*(:|=)\s*(\d+)-(\d+|\*)/.exec(range);
             if (group) {
@@ -31,7 +34,11 @@ export function paginateMiddleware(options?: {keyword?: string, maxLimit?: numbe
                 } else {
                     rangeto = group[3] && parseInt(group[3]) || 0;
                 }
+            } else {
+                rangeto = options!.maxLimit as number;
             }
+        } else {
+            rangeto = options!.maxLimit as number;
         }
         if (!offset && offset !== 0) {
             offset = rangeOffset;
